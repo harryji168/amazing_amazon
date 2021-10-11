@@ -1,0 +1,18 @@
+<h1>
+    Question Index Page   <a href="/products/new">New</a>
+</h1>
+
+<% @products.each do |product|%>
+    <div>
+        <h3>
+ 
+        <h2><%= link_to(product.title, product_path(product.id)) %></h2>
+        </h3>
+        <p>
+        <%= product.description%>
+        </p>
+        <p>
+        <%= product.price %>
+        </p>
+    </div>
+<% end %>

@@ -1,0 +1,72 @@
+<h1>
+    Product Show Page
+</h1>
+
+<h3>
+<%= @product.title%>
+</h3>
+
+<p>
+<%= @product.description%>
+</p>
+
+<p>
+<%= @product.price%>
+</p>
+<p>
+<%= @product.created_at%>
+</p>
+
+<p>
+<%= @product.updated_at%>
+</p>
+<%= link_to("Delete", product_path(@product.id), method: :delete, data: {confirm: "Are you sure"}) %>
+
+<%= link_to("Edit", edit_product_path(@product.id)) %>
+
+<p>
+
+<ul>
+<% @reviews.each do |review| %>
+    <li>
+        <h5><%= review.rate%></h5>
+        <%= review.body%>
+        <small>
+            Reviewed <%= time_ago_in_words(review.created_at) %> ago
+        </small>
+        
+        <%= link_to("Edit", edit_review_path(review.id)) %>
+
+        <%# link_to("Update", edit_product_review_path(@product.id, review.id)) %>
+
+        <%= link_to "Delete", product_review_path(@product.id, review.id), method: :delete, data:{confirm: "Are you sure"}  %>
+    </li>
+<% end %>
+</ul>
+<p>
+
+<% if @review.errors.any? %>
+    <ul>
+    <% @review.errors.full_messages.each do |msg| %>
+        <li> <%= msg%> </li>
+    <% end%>
+    </ul>
+<% end%>
+
+<%= form_with(model:[@product, @review]) do |f|%>
+    <div>
+        <%= f.label :rating%>
+        <br>
+        <%= f.text_field :rate, class:"form-text" , autofocus: true  %>
+    </div>
+    <div>
+        <%= f.label :body%>
+        <br>
+        <%= f.text_area :body, cols: 50, rows: 5 %>
+    </div>
+    <%= f.submit "Review"%>
+<% end %>
+
+<p>
+
+<a href="/products">Back to list</a>

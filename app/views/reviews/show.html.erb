@@ -1,0 +1,22 @@
+<h1>
+    Review Show Page
+</h1>
+
+<h3>
+<%= @review.rate%>
+</h3>
+
+<p>
+<%= @review.body%>
+</p>
+<p>
+<%= time_ago_in_words(@review.created_at) %> ago
+</p>
+<p>
+<%= @review.updated_at%>
+</p>
+
+<%# link_to("Delete", review_path(@question.id), method: :delete, data:{confirm:"Are you sure?"}) %>
+
+<%# link_to("Edit", edit_question_path(@question.id)) %>
+ 
