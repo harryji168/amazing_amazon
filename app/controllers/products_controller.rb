@@ -2,6 +2,8 @@ class ProductsController < ApplicationController
 
     before_action :find_product, only: [:edit, :update, :show, :destroy]
 
+    before_action :authenticate_user! , except: [:index, :show]
+
     def index
         @products = Product.all.order(created_at: :desc)
         # Model.all is a method built into actice record used to return
@@ -28,6 +30,7 @@ class ProductsController < ApplicationController
     def create
 
         @product = Product.new(product_params)
+        @product.user = current_user
         if @product.save
             flash[:notice] = "Product created successfully!"
             redirect_to product_path(@product.id)
@@ -58,6 +61,6 @@ class ProductsController < ApplicationController
     end
     
     def product_params
-        params.require(:product).permit(:title,:description,:price)
+        params.require(:product).permit(:title,:description,:price )
     end
 end

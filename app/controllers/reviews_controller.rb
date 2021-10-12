@@ -1,11 +1,15 @@
 class ReviewsController < ApplicationController
 
+    before_action :authenticate_user! , except: [:index, :show]
+    
     #before_action :find_product 
     # destroy create
     def create
-        #@product = Product.find params(:product_id)
+        
+        @product = Product.find params[:product_id]
         @review  = Review.new(params.require(:review).permit(:rate,:body))
         @review.product = Product.find params[:product_id]  
+        @review.user = current_user
         # if saved successfuly then redirect to the show page of the question
         # otherwise still go to this show page but using render 
         # the difference between redirect and render
@@ -50,6 +54,7 @@ class ReviewsController < ApplicationController
         end 
          
     end
+
 
     
     

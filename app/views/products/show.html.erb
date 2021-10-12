@@ -20,6 +20,11 @@
 <p>
 <%= @product.updated_at%>
 </p>
+
+<h5>
+    Created by: <%= @product.user.first_name + " " + @product.user.last_name %>
+</h5>
+
 <%= link_to("Delete", product_path(@product.id), method: :delete, data: {confirm: "Are you sure"}) %>
 
 <%= link_to("Edit", edit_product_path(@product.id)) %>
@@ -34,6 +39,10 @@
         <small>
             Reviewed <%= time_ago_in_words(review.created_at) %> ago
         </small>
+
+        <h5>
+            reviewed by: <%= review.user.first_name + " " + review.user.last_name %>
+        </h5>
         
         <%= link_to("Edit", edit_review_path(review.id)) %>
 
