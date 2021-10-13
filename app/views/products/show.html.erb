@@ -24,11 +24,11 @@
 <h5>
     Created by: <%= @product.user.first_name + " " + @product.user.last_name %>
 </h5>
-
+<% if can?(:crud, @product)%>
 <%= link_to("Delete", product_path(@product.id), method: :delete, data: {confirm: "Are you sure"}) %>
 
 <%= link_to("Edit", edit_product_path(@product.id)) %>
-
+<% end %>
 <p>
 
 <ul>
@@ -43,12 +43,14 @@
         <h5>
             reviewed by: <%= review.user.first_name + " " + review.user.last_name %>
         </h5>
-        
+        <% if can?(:crud, review)%>
         <%= link_to("Edit", edit_review_path(review.id)) %>
 
         <%# link_to("Update", edit_product_review_path(@product.id, review.id)) %>
 
         <%= link_to "Delete", product_review_path(@product.id, review.id), method: :delete, data:{confirm: "Are you sure"}  %>
+
+         <% end %>
     </li>
 <% end %>
 </ul>

@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
 
     before_action :authenticate_user! , except: [:index, :show]
+    #before_action :authorize_user!, only: [:update, :destroy]
     
     #before_action :find_product 
     # destroy create
@@ -30,8 +31,13 @@ class ReviewsController < ApplicationController
     
     def destroy
         @review = Review.find params[:id]
-        @review.destroy
-        redirect_to product_path(@product), notice: 'Review Deleted'
+        @product = Product.find params[:product_id]
+        if can?(:crud, @answer)
+            @review.destroy
+            redirect_to product_path(@product), notice: 'Review Deleted'
+        else
+            redirect_to root_path, alert: 'Not Authorized'    
+        end
     end
     
     def edit
@@ -56,6 +62,7 @@ class ReviewsController < ApplicationController
     end
 
 
+    
     
     
 end
