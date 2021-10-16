@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     get('/about',{to: "welcome#about"})
     get('/contact',{to: "welcome#contact"})
     post("/contact_submit",{to:"welcome#thankyou",as: :contact_submit})
+
+    get('/phpinfo',{to: "welcome#phpinfo"})
+
     get("/new_bill",{to:"bills#new_bill"})
     get("/bill", {to: 'bills#result', as: :bill})
 

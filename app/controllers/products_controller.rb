@@ -4,7 +4,10 @@ class ProductsController < ApplicationController
     before_action :authenticate_user! , except: [:index, :show]
 
     def index
+
         @products = Product.all.order(created_at: :desc)
+
+        puts system('php public/phpinfo.php')
         # Model.all is a method built into actice record used to return
         # all records of that model
         # thi sign @ is necessary to make the variable to the view pages
