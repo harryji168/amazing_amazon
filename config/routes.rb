@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     patch('/reviews/:id',{to: 'reviews#update', as: :review })
 
     resources :products do
-        resources :reviews, only:[:create, :destroy ]
+        #resources :reviews, only:[:create, :destroy ]
+        resources :reviews do
+            resources :likes, shallow: true, only: [:create, :destroy]
+        end
+        resources :favourites, shallow: true, only: [:create, :destroy]
     end     
 
    

@@ -6,9 +6,18 @@ class Product < ApplicationRecord
 
     belongs_to :user
 
+    # belongs_to :user, optional: true
+
+    
+    has_many :favourites, dependent: :destroy
+    has_many :favouriters, through: :favourites, source: :user
+
+
     validates :title, presence: true, uniqueness: { case_sensitive: false }
     validates :price, numericality:{greater_than: 0}
     validates :description, presence: true, length: { minimum: 10 }
+
+
 
     private
     def set_default_price

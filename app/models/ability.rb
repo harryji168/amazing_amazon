@@ -45,5 +45,22 @@ class Ability
     can(:crud, Review) do |review|
       user == review.user
     end
+
+
+    can :like, Review do |review|
+      user.persisted? && user != review.user
+    end
+    can :destroy, Like do |like|
+      like.user == user
+    end
+
+    can :favourite, Product do |product|
+      user.persisted? && user != product.user
+    end
+
+    can :destroy, Favourite do |favourite|
+      favourite.user == user
+    end
+
   end
 end

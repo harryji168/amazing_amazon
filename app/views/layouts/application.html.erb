@@ -11,7 +11,11 @@
   </head>
 
   <body>
-    <%= flash[:notice] || flash[:alert] %>
+   <% flash.each do |type, message|%>
+    <div class="flush flush-<%= type%>">
+      <%= message%>
+    </div>
+    <% end%> 
     
      <nav>
         <%=  link_to  'Home', root_path  %>
