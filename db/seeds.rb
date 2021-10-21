@@ -8,8 +8,13 @@
 User.destroy_all
 Product.destroy_all
 Review.destroy_all
+Like.destroy_all
+Tag.destroy_all
 
-PASSWORD = '123'
+NUM_PRODUCTS = 50
+NUM_USERS = 5
+NUM_TAGS = 20
+PASSWORD = "123" 
 
 super_user = User.create(
     first_name: "Admin",
@@ -19,7 +24,15 @@ super_user = User.create(
     is_admin: true
 )
 
-5.times do 
+NUM_TAGS.times do
+    Tag.create(
+      name: Faker::ProgrammingLanguage.name
+    )
+end
+
+tags = Tag.all
+
+NUM_USERS.times do 
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     User.create(
@@ -33,7 +46,7 @@ end
 users = User.all
 
 
-100.times do 
+NUM_PRODUCTS.times do 
     created_at = Faker::Date.backward(days: 365 * 2)
     p = Product.create(
         title: Faker::Company.name,
@@ -45,18 +58,26 @@ users = User.all
         
     )
     if p.valid?
-        rand(1..5).times do
-            Review.create(body:Faker::Hacker.say_something_smart,
-                          rate: rand(5),  
-                          product:p,
-                          user: users.sample)
-
+        rand(0..10).times.map do
+          r = Review.create(
+            body: Faker::GreekPhilosophers.quote,
+            rate: rand(1..5),
+            user: users.sample,
+            product: p
+          )
+          if r.valid?
+            r.likers = users.shuffle.slice(0, rand(users.count))
+          end
         end
-    end     
+        p.tags = tags.shuffle.slice(0, rand(tags.count / 2))
+    end
+
+     
 end
 
 reviews = Review.all
 products = Product.all
+likes = Like.all
 
 puts reviews.count 
 puts products.count

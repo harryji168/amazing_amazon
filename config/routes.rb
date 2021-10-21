@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         #resources :reviews, only:[:create, :destroy ]
         resources :reviews do
             resources :likes, shallow: true, only: [:create, :destroy]
+            resources :votes, shallow: true, only: [:create, :destroy]
         end
         resources :favourites, shallow: true, only: [:create, :destroy]
     end     
@@ -29,5 +30,6 @@ Rails.application.routes.draw do
     resources :users, only:[:new, :create]
     resource :session, only: [:new, :create, :destroy]
 
+    resources :tags,only: [:index]
     resources :news_articles
 end

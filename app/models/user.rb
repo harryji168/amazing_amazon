@@ -6,9 +6,13 @@ class User < ApplicationRecord
 
     validates :first_name,:last_name,:email,:password,  presence: true
 
-    has_many :likes
+    has_many :likes, dependent: :destroy
     has_many :liked_reviews, through: :likes, source: :review
 
     has_many :favourites
     has_many :favourited_products, through: :favourites, source: :product
+
+      # lab for more many to many
+      has_many :votes
+      has_many :vote_reviews, through: :votes, source: :review
 end

@@ -5,9 +5,16 @@ class ProductsController < ApplicationController
 
     def index
 
-        @products = Product.all.order(created_at: :desc)
+        #@products = Product.all.order(created_at: :desc)
 
-        puts system('php public/phpinfo.php')
+
+        if params[:tag]
+            @tag = Tag.find_or_initialize_by(name: params[:tag])
+            @products = @tag.products.order(created_at: :desc)
+        else
+            @products = Product.all
+        end
+ 
         # Model.all is a method built into actice record used to return
         # all records of that model
         # thi sign @ is necessary to make the variable to the view pages
@@ -65,7 +72,7 @@ class ProductsController < ApplicationController
     end
     
     def product_params
-        params.require(:product).permit(:title,:description,:price )
+        params.require(:product).permit(:title,:description,:price , {tag_ids: []} )
     end
 
     def authorize_user!
