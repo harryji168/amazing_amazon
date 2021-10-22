@@ -15,4 +15,10 @@ class User < ApplicationRecord
       # lab for more many to many
       has_many :votes
       has_many :vote_reviews, through: :votes, source: :review
+
+      validates :first_name, :last_name, :email, :password, presence: true
+    
+      def full_name
+          "#{first_name} #{last_name}".strip.titlecase
+      end
 end

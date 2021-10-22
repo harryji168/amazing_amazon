@@ -47,7 +47,9 @@ group :development do
   gem 'spring'
   gem 'cowsay', '~> 0.3.0'
   gem 'faker' 
-
+  gem 'letter_opener'
+  gem 'delayed_job_active_record'
+  gem 'delayed_job_web'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
