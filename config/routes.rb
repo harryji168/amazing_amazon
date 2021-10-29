@@ -39,4 +39,12 @@ Rails.application.routes.draw do
         anchor: false,
         via: [:get, :post]
       )
+
+      # labs for rails api
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :products
+      resource :session, only: [:create, :destroy]
+    end
+  end  
 end

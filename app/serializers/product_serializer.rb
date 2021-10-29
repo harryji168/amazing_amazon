@@ -12,6 +12,6 @@ class ProductSerializer < ActiveModel::Serializer
   end 
   has_many :reviews
   class ReviewSerializer < ActiveModel::Serializer
-    attributes :id, :body, :rating
+    attributes :id, :body, :rate
   end 
 end
